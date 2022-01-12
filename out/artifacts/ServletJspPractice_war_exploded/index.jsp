@@ -8,6 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="com.major.servletJspPractice.common.user.UserDAO" %>
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="com.major.servletJspPractice.common.evaluation.EvaluationDAO" %>
 <!doctype html>
 <html>
 <head>
@@ -143,6 +145,52 @@
             <a class="btn btn-danger" data-bs-toggle="modal" href="#reportModal">신고</a>
         </div>
     </form>
+    <%
+        ResultSet rs = new EvaluationDAO().inquire();
+        if (rs == null) {
+    %>
+    <div>강의 평가를 불러오는데 실패했습니다.</div>
+    <%
+    } else {
+        while (rs.next()) {
+    %>
+    <div class="card bg-light mt-3">
+        <div class="card-header bg-light">
+            <div class="row">
+                <div class="col-8 text-start"><%=rs.getString("lectureName")%>&nbsp;
+                    <small><%=rs.getString("profName")%>
+                    </small></div>
+                <div class="col-4 text-end">
+                    종합<span style="color: red;"><%=rs.getString("totalScore")%></span>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                <%=rs.getString("evaluationTitle")%>&nbsp;<small><%=rs.getInt("lectureYear")%>년&nbsp
+                <%=rs.getString("semesterDivide")%>
+            </small>
+            </h5>
+            <p class="card-text"><%=rs.getString("evaluationContent")%>
+            </p>
+            <div class="row">
+                <div class="col-9 text-start">
+                    성적<span style="color: red;"><%=rs.getString("creditScore")%></span>
+                    여유도<span style="color: red;"><%=rs.getString("comfortableScore")%></span>
+                    강의 퀄리티<span style="color: red;"><%=rs.getString("lectureScore")%></span>
+                    <span style="color: green">(추천 : <%=rs.getInt("likeCount")%>)</span>
+                </div>
+                <div class="col-3 text-end">
+                    <a onclick="return confirm('추천하시겠습니까?')" href="./likeAction.jsp?evaluationID=">추천</a>
+                    <a onclick="return confirm('삭제하시겠습니까?')" href="./deleteAction.jsp?evaluationID=">삭제</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%
+            }
+        }
+    %>
     <div class="card bg-light mt-3">
         <div class="card-header bg-light">
             <div class="row">
@@ -269,7 +317,7 @@
                         </div>
                         <div class="col-sm-4">
                             <label>수강학기</label>
-                            <select name="lectureSemester" class="form-control">
+                            <select name="semesterDivide" class="form-control">
                                 <option value="1학기">1학기</option>
                                 <option value="여름학기">여름학기</option>
                                 <option value="2학기">2학기</option>
@@ -287,7 +335,7 @@
                     </div>
                     <div class="row">
                         <label>제목</label>
-                        <input type="text" name="evaluationTime" class="form-control" maxlength="30">
+                        <input type="text" name="evaluationTitle" class="form-control" maxlength="30">
                     </div>
                     <div class="row">
                         <label>내용</label>
@@ -308,7 +356,7 @@
                         </div>
                         <div class="col-sm-3">
                             <label>성적</label>
-                            <select name="totalScore" class="form-control">
+                            <select name="creditScore" class="form-control">
                                 <option value="A">A</option>
                                 <option value="B">B</option>
                                 <option value="C">C</option>
@@ -319,7 +367,7 @@
                         </div>
                         <div class="col-sm-3">
                             <label>여유도</label>
-                            <select name="totalScore" class="form-control">
+                            <select name="comfortableScore" class="form-control">
                                 <option value="A">A</option>
                                 <option value="B">B</option>
                                 <option value="C">C</option>
@@ -330,7 +378,7 @@
                         </div>
                         <div class="col-sm-3">
                             <label>강의 퀄리티</label>
-                            <select name="totalScore" class="form-control">
+                            <select name="lectureScore" class="form-control">
                                 <option value="A">A</option>
                                 <option value="B">B</option>
                                 <option value="C">C</option>

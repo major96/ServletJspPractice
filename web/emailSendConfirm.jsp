@@ -6,15 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<%@ page import="javax.mail.*" %>
-<%@ page import="java.util.Properties" %>
-
-<%@ page import="com.major.servletJspPractice.common.user.UserDAO" %>
-<%@ page import="com.major.servletJspPractice.common.util.SHA256" %>
-<%@ page import="com.major.servletJspPractice.common.util.Gmail" %>
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="javax.mail.internet.MimeMessage" %>
-<%@ page import="javax.mail.internet.InternetAddress" %>
 
 
 <!doctype html>

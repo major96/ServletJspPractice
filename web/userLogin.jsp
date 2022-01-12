@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ page import="java.io.PrintWriter" %>
+
 <!doctype html>
 <html>
 <head>
@@ -24,6 +26,21 @@
     <script type="text/javascript" src="js/bootstrap.bundle.js"></script>
 </head>
 <body>
+<%
+    String userID = null;
+    if (session.getAttribute("userID") != null) {
+        userID = (String) session.getAttribute("userID");
+    }
+    if(userID!=null){
+        PrintWriter script = response.getWriter();
+        script.println("<script>");
+        script.println("alert('로그인이된 상태입니다.');");
+        script.println("location.href = 'index.jsp';");
+        script.println("</script>");
+        script.close();
+        return;
+    }
+%>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="index.jsp">강의평가 웹사이트</a>
@@ -43,15 +60,24 @@
                         회원관리
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown">
+                        <%
+                            if (userID == null){
+                        %>
                         <li>
                             <a class="dropdown-item active" href="userLogin.jsp">로그인</a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="userJoin.jsp">회원가입</a>
                         </li>
+                        <%
+                        }else{
+                        %>
                         <li>
-                            <a class="dropdown-item" href="userLogout.jsp">로그아웃</a>
+                            <a class="dropdown-item" href="userLogoutAction.jsp">로그아웃</a>
                         </li>
+                        <%
+                            }
+                        %>
                     </ul>
                 </li>
             </ul>

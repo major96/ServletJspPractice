@@ -46,9 +46,8 @@
     String from = "jinkeun96@gmail.com";
     String to = userDao.getUserEmail(userID);
     String subject = "강의평가를 위한 인증메일입니다.";
-    new SHA256();
     String content = "다음 링크에 접속하여 이메일 인증을 진행하세요"
-            + "<a href '" + host + "emailCheckAction.jsp?code=" + SHA256.getSHA256(to) + "'> 이메일 인증</a>";
+            + "<a href = '" + host + "emailCheckAction.jsp?code=" + new SHA256().getSHA256(to) + "'> 이메일 인증</a>";
     Properties p = new Properties();
     p.put("mail.smtp.user", from);
     p.put("mail.smtp.host", "smtp.googlemail.com");
@@ -129,7 +128,7 @@
                             <a class="dropdown-item active " href="userJoin.jsp">회원가입</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="userLogout.jsp">로그아웃</a>
+                            <a class="dropdown-item" href="userLogoutAction.jsp">로그아웃</a>
                         </li>
                     </ul>
                 </li>

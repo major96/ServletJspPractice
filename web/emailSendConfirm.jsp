@@ -1,12 +1,22 @@
 <%--
   Created by IntelliJ IDEA.
   User: bagjingeun
-  Date: 2022/01/06
-  Time: 2:38 오후
+  Date: 2022/01/11
+  Time: 1:33 오후
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ page import="javax.mail.*" %>
+<%@ page import="java.util.Properties" %>
+
+<%@ page import="com.major.servletJspPractice.common.user.UserDAO" %>
+<%@ page import="com.major.servletJspPractice.common.util.SHA256" %>
+<%@ page import="com.major.servletJspPractice.common.util.Gmail" %>
 <%@ page import="java.io.PrintWriter" %>
+<%@ page import="javax.mail.internet.MimeMessage" %>
+<%@ page import="javax.mail.internet.InternetAddress" %>
+
+
 <!doctype html>
 <html>
 <head>
@@ -30,11 +40,11 @@
     if (session.getAttribute("userID") != null) {
         userID = (String) session.getAttribute("userID");
     }
-    if(userID!=null){
+    if(userID==null){
         PrintWriter script = response.getWriter();
         script.println("<script>");
-        script.println("alert('로그인이된 상태입니다.');");
-        script.println("location.href = 'index.jsp';");
+        script.println("alert('로그인이 필요합니다');");
+        script.println("location.href = 'userLogin.jsp';");
         script.println("</script>");
         script.close();
         return;
@@ -60,16 +70,16 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown">
                         <%
-                            if (userID == null){
+                            if (userID == null) {
                         %>
                         <li>
                             <a class="dropdown-item" href="userLogin.jsp">로그인</a>
                         </li>
                         <li>
-                            <a class="dropdown-item active" href="userJoin.jsp">회원가입</a>
+                            <a class="dropdown-item" href="userJoin.jsp">회원가입</a>
                         </li>
                         <%
-                        }else{
+                        } else {
                         %>
                         <li>
                             <a class="dropdown-item" href="userLogoutAction.jsp">로그아웃</a>
@@ -92,23 +102,10 @@
     </div>
 </nav>
 <section class="container-fluid" style="max-width: 560px;">
-    <form method="post" action="./userRegisterAction.jsp">
-        <div class="row mb-3">
-            <label class="form-label p-0">아이디</label>
-            <input type="text" name="userID" class="form-control">
-        </div>
-        <div class="row mb-3">
-            <label class="form-label p-0">비밀번호</label>
-            <input type="password" name="userPWD" class="form-control">
-        </div>
-        <div class="row mb-3">
-            <label class="form-label p-0">E-Mail</label>
-            <input type="email" name="userEmail" class="form-control">
-        </div>
-        <div class ="row justify-content-start">
-        <button type="submit" class="btn btn-primary mt-2 col-2">회원가입</button>
-        </div>
-    </form>
+<div class="alert alert-warning mt-4" role="alert">
+    이메일 인증이 필요합니다.
+</div>
+    <a href="emailSendAction.jsp" class="btn btn-primary">메일 인증하기</a>
 </section>
 
 <footer class="bg-dark mt-4 p-5 text-center" style="color: #ffffff;">

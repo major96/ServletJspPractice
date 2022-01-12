@@ -12,23 +12,38 @@
 
 <%
     request.setCharacterEncoding("UTF-8");
-    String code=null;
+    String code = null;
     UserDAO userDAO = new UserDAO();
-    String username = request.getParameter("userID");
-    if(request.getParameter("code") !=null)
+    String userID = null;
+
+    if (request.getParameter("code") != null)
         code = request.getParameter("code");
 
-    String email = userDAO.getUserEmail(username);
-    boolean isRight = (new SHA256().getSHA256(email).equals(code))? true:false;
-    if(isRight){
+    if (session.getAttribute("userID") != null) {
+        userID = (String) session.getAttribute("userID");
+    }
+
+    if (userID == null) {
+        PrintWriter script = response.getWriter();
+        script.println("<script>");
+        script.println("alert('입력 안된 사항이 있습니다');");
+        script.println("location.href = 'userLogin.jsp';");
+        script.println("</script>");
+        script.close();
+        return;
+    }
+
+    String email = userDAO.getUserEmail(userID);
+    boolean isRight = new SHA256().getSHA256(email).equals(code) ? true : false;
+    if (isRight) {
+        userDAO.setEmailChecked(userID);
         PrintWriter script = response.getWriter();
         script.println("<script>");
         script.println("alert('인증이 완료되었습니다.');");
         script.println("location.href = 'index.jsp';");
         script.println("</script>");
         script.close();
-    }
-    else{
+    } else {
         PrintWriter script = response.getWriter();
         script.println("<script>");
         script.println("alert('유효하지 않은 코드입니다.');");

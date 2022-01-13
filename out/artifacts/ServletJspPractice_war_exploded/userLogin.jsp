@@ -81,10 +81,9 @@
                     </ul>
                 </li>
             </ul>
-            <form class="row row-cols-lg-auto ms-auto my-2 my-lg-0 align-items-center" action = "./index.jsp"
-                  method = "get">
+            <form class="row row-cols-lg-auto ms-auto my-2 my-lg-0 align-items-center">
                 <div class="col-12">
-                    <input class="form-control mr-sm-2" type="text" name="search" placeholder="내용을 입력하세요" aria-label="Search">
+                    <input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search">
                 </div>
                 <div class="col-12">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>

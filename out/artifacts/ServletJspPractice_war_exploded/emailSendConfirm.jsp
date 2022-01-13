@@ -1,12 +1,13 @@
 <%--
   Created by IntelliJ IDEA.
   User: bagjingeun
-  Date: 2022/01/06
-  Time: 2:38 오후
+  Date: 2022/01/11
+  Time: 1:33 오후
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ page import="java.io.PrintWriter" %>
+
 
 <!doctype html>
 <html>
@@ -31,11 +32,11 @@
     if (session.getAttribute("userID") != null) {
         userID = (String) session.getAttribute("userID");
     }
-    if(userID!=null){
+    if(userID==null){
         PrintWriter script = response.getWriter();
         script.println("<script>");
-        script.println("alert('로그인이된 상태입니다.');");
-        script.println("location.href = 'index.jsp';");
+        script.println("alert('로그인이 필요합니다');");
+        script.println("location.href = 'userLogin.jsp';");
         script.println("</script>");
         script.close();
         return;
@@ -61,16 +62,16 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown">
                         <%
-                            if (userID == null){
+                            if (userID == null) {
                         %>
                         <li>
-                            <a class="dropdown-item active" href="userLogin.jsp">로그인</a>
+                            <a class="dropdown-item" href="userLogin.jsp">로그인</a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="userJoin.jsp">회원가입</a>
                         </li>
                         <%
-                        }else{
+                        } else {
                         %>
                         <li>
                             <a class="dropdown-item" href="userLogoutAction.jsp">로그아웃</a>
@@ -81,10 +82,9 @@
                     </ul>
                 </li>
             </ul>
-            <form class="row row-cols-lg-auto ms-auto my-2 my-lg-0 align-items-center" action = "./index.jsp"
-                  method = "get">
+            <form class="row row-cols-lg-auto ms-auto my-2 my-lg-0 align-items-center">
                 <div class="col-12">
-                    <input class="form-control mr-sm-2" type="text" name="search" placeholder="내용을 입력하세요" aria-label="Search">
+                    <input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search">
                 </div>
                 <div class="col-12">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
@@ -94,19 +94,10 @@
     </div>
 </nav>
 <section class="container-fluid" style="max-width: 560px;">
-    <form method="post" action="./userLoginAction.jsp">
-        <div class="row mb-3">
-            <label class="form-label p-0">아이디</label>
-            <input type="text" name="userID" class="form-control">
-        </div>
-        <div class="row mb-3">
-            <label class="form-label p-0">비밀번호</label>
-            <input type="password" name="userPWD" class="form-control">
-        </div>
-        <div class ="row justify-content-start">
-        <button type="submit" class="btn btn-primary mt-2 col-2">로그인</button>
-        </div>
-    </form>
+<div class="alert alert-warning mt-4" role="alert">
+    이메일 인증이 필요합니다.
+</div>
+    <a href="emailSendAction.jsp" class="btn btn-primary">메일 인증하기</a>
 </section>
 
 <footer class="bg-dark mt-4 p-5 text-center" style="color: #ffffff;">

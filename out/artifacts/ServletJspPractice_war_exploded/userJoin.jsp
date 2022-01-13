@@ -7,7 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ page import="java.io.PrintWriter" %>
-
 <!doctype html>
 <html>
 <head>
@@ -64,10 +63,10 @@
                             if (userID == null){
                         %>
                         <li>
-                            <a class="dropdown-item active" href="userLogin.jsp">로그인</a>
+                            <a class="dropdown-item" href="userLogin.jsp">로그인</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="userJoin.jsp">회원가입</a>
+                            <a class="dropdown-item active" href="userJoin.jsp">회원가입</a>
                         </li>
                         <%
                         }else{
@@ -81,10 +80,9 @@
                     </ul>
                 </li>
             </ul>
-            <form class="row row-cols-lg-auto ms-auto my-2 my-lg-0 align-items-center" action = "./index.jsp"
-                  method = "get">
+            <form class="row row-cols-lg-auto ms-auto my-2 my-lg-0 align-items-center">
                 <div class="col-12">
-                    <input class="form-control mr-sm-2" type="text" name="search" placeholder="내용을 입력하세요" aria-label="Search">
+                    <input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search">
                 </div>
                 <div class="col-12">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
@@ -94,7 +92,7 @@
     </div>
 </nav>
 <section class="container-fluid" style="max-width: 560px;">
-    <form method="post" action="./userLoginAction.jsp">
+    <form method="post" action="./userRegisterAction.jsp">
         <div class="row mb-3">
             <label class="form-label p-0">아이디</label>
             <input type="text" name="userID" class="form-control">
@@ -103,8 +101,12 @@
             <label class="form-label p-0">비밀번호</label>
             <input type="password" name="userPWD" class="form-control">
         </div>
+        <div class="row mb-3">
+            <label class="form-label p-0">E-Mail</label>
+            <input type="email" name="userEmail" class="form-control">
+        </div>
         <div class ="row justify-content-start">
-        <button type="submit" class="btn btn-primary mt-2 col-2">로그인</button>
+        <button type="submit" class="btn btn-primary mt-2 col-2">회원가입</button>
         </div>
     </form>
 </section>

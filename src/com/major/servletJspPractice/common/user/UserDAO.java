@@ -3,13 +3,13 @@ package com.major.servletJspPractice.common.user;
 import com.major.servletJspPractice.common.util.DatabaseUtil;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.PreparedStatement;;
 import java.sql.ResultSet;
 
 public class UserDAO {
 
     public int login(String userId, String userPwd) {
-        String SQL = "SELECT password FROM USER WHERE username = ?";
+        String SQL = "SELECT password from USER where username = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;

@@ -1,13 +1,18 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" build-on-make="true" name="ServletJspPractice:war exploded">
+  <artifact type="exploded-war" name="ServletJspPractice:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/ServletJspPractice_war_exploded</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="ServletJspPractice/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="ServletJspPractice" />
         </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="/usr/local/Cellar/tomcat/10.0.14/libexec/lib/tomcat-api.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/activation.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/javax.mail-1.6.2.jar" />
+        </element>
       </element>
+      <element id="javaee-facet-resources" facet="ServletJspPractice/web/Web" />
     </root>
   </artifact>
 </component>

@@ -42,7 +42,7 @@
         script.close();
         return;
     }
-    String host = "http://localhost:8080/";
+    String host = "https://lecture-evaluation-41233.herokuapp.com/";
     String from = "jinkeun96@gmail.com";
     String to = userDao.getUserEmail(userID);
     String subject = "강의평가를 위한 인증메일입니다.";
